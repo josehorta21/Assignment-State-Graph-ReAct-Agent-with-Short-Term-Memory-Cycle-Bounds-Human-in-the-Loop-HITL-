@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#09111d" />
+  <meta name="description" content="StateGuard | An auditable agent state graph with circuit breakers and human approval" />
+  <title>StateGuard | Agent Operations Console</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 30 30" fill="none"><path d="M15 3L26 8V16C26 22 21.6 26 15 28C8.4 26 4 22 4 16V8L15 3Z" stroke="currentColor" stroke-width="1.8"/><path d="M10 15L13.6 18.6L21 11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="brand-name">StateGuard<span class="brand-dot">.</span></div><div class="brand-caption">AGENT OPERATIONS</div></div>
+      </div>
+      <div class="sidebar-label">WORKSPACE</div>
+      <div class="nav-item selected"><span class="nav-icon">◈</span> Control Center <span class="nav-right">01</span></div>
+      <div class="nav-item dim"><span class="nav-icon">⌘</span> Graph Inspector</div>
+      <div class="nav-item dim"><span class="nav-icon">▤</span> Execution Log</div>
+      <div class="sidebar-label" style="margin-top:34px">SESSION</div>
+      <div class="session-panel">
+        <div class="micro-label">ACTIVE THREAD</div>
+        <div id="threadLabel" class="thread-id">Creating session...</div>
+        <div class="session-actions"><button id="copyThread" class="text-button" type="button">Copy ID</button><button id="newSession" class="text-button" type="button">+ New session</button></div>
+      </div>
+      <div class="sidebar-label" style="margin-top:32px">TEST SCENARIOS</div>
+      <button class="scenario" type="button" data-prompt="Check the current error rate on auth-service. If it's over 5%, scale its replicas to 10 and transfer $1,500 to the contracted on-call engineering firm (Vendor ID: V-8812) for emergency mitigation."><span class="scenario-icon">⚡</span><span>Incident response<small>Metrics → 2 approvals</small></span><span class="scenario-arrow">↗</span></button>
+      <button class="scenario" type="button" data-prompt="Check the current error rate on healthy-service. If it's over 5%, scale its replicas to 10."><span class="scenario-icon">◇</span><span>Conditional skip<small>Threshold not reached</small></span><span class="scenario-arrow">↗</span></button>
+      <button class="scenario" type="button" data-prompt="Check the billing balance on DEMO-100."><span class="scenario-icon">◉</span><span>Safe read-only tool<small>Autonomous completion</small></span><span class="scenario-arrow">↗</span></button>
+      <button class="scenario" type="button" data-prompt="My name is Alice"><span class="scenario-icon">✦</span><span>Memory checkpoint<small>Save conversational fact</small></span><span class="scenario-arrow">↗</span></button>
+      <div class="sidebar-footer"><span class="green-dot"></span> SANDBOX ENVIRONMENT<div class="footer-line">No real funds or deployments</div></div>
+    </aside>
+    <main class="main">
+      <div class="topline"><div class="breadcrumbs">ENGINEERING LAB <span>/</span> OPERATIONS <span>/</span> <b>CONTROL CENTER</b></div><div class="topline-right"><span class="top-pill"><span class="green-dot"></span> ALL SYSTEMS READY</span><span class="avatar">JH</span></div></div>
+      <header class="intro"><div class="eyebrow"><span class="line-mark"></span> HUMAN-GOVERNED AUTONOMY <span class="version">v1.0</span></div><h1>Autonomy with a<br/><em>brake pedal.</em></h1><p>Observe every reasoning cycle. Contain every repeated action. Approve every high-impact operation before it runs.</p></header>
+      <div class="metrics" aria-label="Runtime metrics">
+        <div class="metric"><div class="metric-label">EXECUTION STATUS</div><div class="metric-value"><span id="statusDot" class="status-dot ready"></span><span id="statusValue">READY</span></div><div class="metric-foot">Checkpointed runtime</div></div>
+        <div class="metric"><div class="metric-label">REASONING CYCLES</div><div class="metric-value"><span id="cycleValue">0</span><span class="muted-divider">/</span><span class="muted-number">6</span></div><div class="metric-foot">Hard session ceiling</div></div>
+        <div class="metric"><div class="metric-label">CHECKPOINTER</div><div class="metric-value small">SQLite <span class="metric-ok">✓</span></div><div class="metric-foot">Persistent, thread-isolated</div></div>
+        <div class="metric"><div class="metric-label">TOOL SECURITY</div><div class="metric-value small">HITL <span class="metric-ok">●</span></div><div class="metric-foot">Sensitive actions gated</div></div>
+      </div>
+      <div class="workspace">
+        <section class="console panel">
+          <div class="panel-heading"><div><div class="panel-kicker">01 / OPERATOR CONSOLE</div><h2>Agent conversation</h2></div><span class="live-label"><span class="pulse-dot"></span> LIVE SESSION</span></div>
+          <div id="chat" class="chat" aria-live="polite"><div class="empty-chat"><div class="empty-orbit">✧</div><strong>Ready for your first request</strong><span>Choose a scenario or describe an operation below.</span></div></div>
+          <div id="approval" class="approval hidden" aria-live="polite"></div>
+          <div class="composer"><label class="composer-label" for="prompt">OPERATOR REQUEST</label><textarea id="prompt" rows="3" placeholder="Ask to check auth-service metrics, inspect billing, or request a simulated change..."></textarea><div class="composer-controls"><label class="toggle-wrap"><input type="checkbox" id="errorToggle" /><span class="toggle-slider"></span><span>Inject failing tool call</span></label><button id="send" class="primary-button" type="button">Execute request <span>↗</span></button></div><p id="notification" class="notification" role="status" aria-live="polite"></p></div>
+        </section>
+        <div class="right-stack">
+          <section class="panel graph-panel"><div class="panel-heading compact"><div><div class="panel-kicker">02 / STATE FLOW</div><h2>Runtime topology</h2></div><span class="graph-tag">DETERMINISTIC</span></div>
+            <div class="graph-inner" aria-label="State graph">
+              <svg class="flow-svg" viewBox="0 0 465 280" role="img" aria-label="Agent to circuit breaker, human approval, tool executor, and error or end states">
+                <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#697a91"/></marker></defs>
+                <g stroke="#50617a" stroke-width="1.4" fill="none" marker-end="url(#arrow)">
+                  <path d="M126 56H163"/><path d="M304 56H341"/><path d="M227 82V129"/><path d="M227 175V206H100V82"/><path d="M407 82V134"/><path d="M370 170H304"/><path d="M227 170H154"/><path d="M407 186V226"/><path d="M154 56H141" stroke-dasharray="3 5"/>
+                </g>
+                <g class="graph-node" data-node="agent_node"><rect x="12" y="30" width="114" height="52" rx="10"/><text x="69" y="53" text-anchor="middle">AGENT</text><text x="69" y="67" class="sub" text-anchor="middle">reasoning</text></g>
+                <g class="graph-node" data-node="circuit_breaker_node"><rect x="163" y="30" width="141" height="52" rx="10"/><text x="233.5" y="53" text-anchor="middle">CIRCUIT</text><text x="233.5" y="67" class="sub" text-anchor="middle">SHA-256 + max 6</text></g>
+                <g class="graph-node" data-node="human_approval_gate"><rect x="341" y="30" width="114" height="52" rx="10"/><text x="398" y="53" text-anchor="middle">HUMAN</text><text x="398" y="67" class="sub" text-anchor="middle">approval gate</text></g>
+                <g class="graph-node" data-node="tool_executor_node"><rect x="163" y="129" width="141" height="49" rx="10"/><text x="233.5" y="151" text-anchor="middle">EXECUTOR</text><text x="233.5" y="164" class="sub" text-anchor="middle">safe / approved</text></g>
+                <g class="graph-node" data-node="error_node"><rect x="341" y="134" width="114" height="52" rx="10"/><text x="398" y="156" text-anchor="middle">ERROR</text><text x="398" y="169" class="sub" text-anchor="middle">safe termination</text></g>
+                <g class="graph-node" data-node="END"><rect x="346" y="226" width="109" height="42" rx="10"/><text x="400" y="252" text-anchor="middle">END</text></g>
+                <text x="312" y="46" class="route-label">SENSITIVE</text><text x="240" y="111" class="route-label">SAFE</text><text x="310" y="159" class="route-label">TRIP</text><text x="128" y="120" class="route-label">LOOP</text>
+              </svg>
+              <div class="graph-footnote"><span class="node-led"></span> Current: <strong id="activeNode">START</strong></div>
+            </div>
+          </section>
+          <section class="panel trace-panel"><div class="panel-heading compact"><div><div class="panel-kicker">03 / AUDIT TRAIL</div><h2>Graph transitions</h2></div><span class="graph-tag">EVENT LOG</span></div><div id="trace" class="trace"><div class="trace-empty">Graph transitions appear after the first request.</div></div></section>
+          <section class="panel inspector-panel"><div class="panel-heading compact"><div><div class="panel-kicker">04 / CHECKPOINT</div><h2>Persistent state</h2></div><span id="versionTag" class="graph-tag">v0</span></div><details><summary>Inspect full state JSON <span>⌄</span></summary><pre id="jsonState">{}</pre></details></section>
+        </div>
+      </div>
+      <footer class="main-footer"><span>STATEGUARD / EDUCATIONAL SIMULATOR</span><span>CUSTOM STATE GRAPH · PYTHON 3.11+ · FASTAPI · SQLITE</span></footer>
+    </main>
+  </div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

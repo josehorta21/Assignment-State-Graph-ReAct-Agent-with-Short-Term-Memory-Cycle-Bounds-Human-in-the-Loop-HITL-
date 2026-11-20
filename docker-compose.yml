@@ -1,0 +1,18 @@
+services:
+  stateguard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: stateguard-agent:local
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      AGENT_DB_PATH: /app/data/checkpoints.db
+      AGENT_PLANNER: deterministic
+      AGENT_MAX_ITERATIONS: "6"
+    volumes:
+      - stateguard-state:/app/data
+    restart: unless-stopped
+
+volumes:
+  stateguard-state:
